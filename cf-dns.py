@@ -98,5 +98,6 @@ if namedns['result'][0]['content'] != currentip:
     print("[DNS] failed change, error: ", e)
   finally:
     driver.close()
+    driver.quit()
 else:
   print('[DNS] no change: {}'.format(namedns['result'][0]['content']))
