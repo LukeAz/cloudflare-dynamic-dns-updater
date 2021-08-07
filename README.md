@@ -14,7 +14,10 @@ Project includes:
 * pip install selenium requests
 * nano cf-dns.py
 * python cf-dns.py
-* crontab example: */5 * * * * /usr/bin/python cf-dns.py
+* chmod +x cf-dns.py
+* crontab -e
+* add */5 * * * * /home/cloudflare/cf-dns.py
+* crontab -l
 
 ## Configure
 * nano cf-dns.py
