@@ -41,9 +41,6 @@ Project includes:
 ## [Zone identifier]
 * Go in your dashboard and select the correct domain
 * In the overview pannel you can found this token
-* How to get the record name
-* Go in your DNS dashboard
-* If you have a subdomain you must enter subdomain.domain.it
 
 ## Installation and start-up instructions
 * Install dependencies:
