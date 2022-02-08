@@ -10,26 +10,17 @@ import time
 import requests
 import json
 
+config = json.load(open('config.json'))
 chrome_options = Options()
 chrome_options.add_argument("--incognito")
 chrome_options.add_argument("--headless")
 chrome_options.add_argument("--disable-extensions")
 chrome_options.add_argument("--disable-gpu")
 
-auth_email = ""
-auth_password = ""
-auth_key = ""
-zone_identifier = ""
-zone_name = ""
-record_name = ""
-proxy = True
-ttl = 1
-type = "AAAA" #ipv6 domain [for ipv4 use "AA"]
-
 currentip = requests.get('https://ipv6.icanhazip.com/' if type == "AAAA" else 'https://ipv4.icanhazip.com/').text.strip()
-namedns = requests.get('https://api.cloudflare.com/client/v4/zones/{}/dns_records?name={}'.format(zone_identifier, record_name), headers = {
-  "X-Auth-Email": auth_email,
-  "Authorization": "Bearer " + auth_key,
+namedns = requests.get('https://api.cloudflare.com/client/v4/zones/{}/dns_records?name={}'.format(config["zone_identifier"], config["record_name"]), headers = {
+  "X-Auth-Email": config["auth_email"],
+  "Authorization": "Bearer " + config["auth_key"],
   "Content-Type": "application/json"
 }).json()
 
@@ -51,24 +42,24 @@ if namedns['result'][0]['content'] != currentip:
     email = WebDriverWait(driver, 10).until(
       EC.presence_of_element_located((By.XPATH, """//input[@data-testid="login-input-email"]"""))
     )
-    email.send_keys(auth_email)
-    driver.find_element(By.XPATH,"""//input[@data-testid="login-input-password"]""").send_keys(auth_password)
+    email.send_keys(config["auth_email"])
+    driver.find_element(By.XPATH,"""//input[@data-testid="login-input-password"]""").send_keys(config["auth_password"])
     driver.find_element(By.XPATH,"""//button[@data-testid="login-submit-button"]""").click()
     time.sleep(5);
 
     payload = {
       "content": currentip,
       "data":{},
-      "name": record_name,
-      "proxiable": proxy,
-      "proxied": proxy,
-      "ttl": ttl,
-      "type": type,
-      "zone_id": zone_identifier,
-      "zone_name": zone_name,
+      "name": config["record_name"],
+      "proxiable": config["proxy"],
+      "proxied": config["proxy"],
+      "ttl": config["ttl"],
+      "type": config["type"],
+      "zone_id": config["zone_identifier"],
+      "zone_name": config["zone_name"],
       "id": namedns['result'][0]['id']
     }
-    url = "https://dash.cloudflare.com/api/v4/zones/{}/dns_records/{}".format(zone_identifier, namedns['result'][0]['id'])
+    url = "https://dash.cloudflare.com/api/v4/zones/{}/dns_records/{}".format(config["zone_identifier"], namedns['result'][0]['id'])
     script = """
         xhr = new XMLHttpRequest();
         xhr.open('PUT', "{}", false);
