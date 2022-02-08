@@ -9,32 +9,72 @@ Project includes:
 * Selenium webdriver
 * Request
 
-## Install and run
-* Install python, Chromium, chromedriver (binary file in the same directory)
-* pip install selenium requests
-* nano cf-dns.py
-* python cf-dns.py
-* chmod +x cf-dns.py
-* crontab -e
-* add */5 * * * * /home/cloudflare/cf-dns.py
-* crontab -l
 
-## Configure
-* nano cf-dns.py
-* auth_email : Account email
-* auth_password : Account password
-* auth_key : API key, see https://www.cloudflare.com/a/account/my-account
-* zone_identifier: Zone Id, get it from your account
-* zone_name: Zone name, eg: example.com
-* record_name: Hostname to update, eg: homeserver.example.com
-* proxy: use https cloudflare proxy
-* ttl: if you use the proxy leave the default value
-* type: "AAAA" for ipv6, "AA" for ipv4
+## Requirements
+* [Python3](https://www.python.org/downloads/)
+* Chromium or Chrome
+* [Chromedriver](https://chromedriver.chromium.org/downloads)
+
+## Edit and configure cf-dns.py
+* auth_email : `account email`
+* auth_password : `account password`
+* auth_key : `see below`
+* zone_identifier: `see below`
+* zone_name: `your domain, example: domain.it`
+* record_name: `your subdomain, example: subdomain.domain.it`
+* proxy: `do you want to use cloudflare proxy?`
+* ttl: `if you use the proxy leave the default value`
+* type: `"AAAA" for ipv6, "A" for ipv4`
+
+## [Auth Key]
+* Go in your profile in your dashboard
+* Select “API Tokens”
+* Create a new token api
+* Select “Edit zone DNS” templates
+* In “Permissions” select ZONE -> DNS -> READ
+* In “Zone Resources” select INCLUDE -> your zone or all
+* If you want you can define a TTL for your token
+* Continue to summary
+* Create Token
+* Copy your token in the cf-dns.py file
+
+## [Zone identifier]
+* Go in your dashboard and select the correct domain
+* In the overview pannel you can found this token
+* How to get the record name
+* Go in your DNS dashboard
+* If you have a subdomain you must enter subdomain.domain.it
+
+## Installation and start-up instructions
+* Install dependencies:
+  - pip install selenium requests
+* Crontab:
+  - crontab -e
+  - add */5 * * * * /home/cloudflare/cf-dns.py
+  - crontab -l
+
+### Windows
+* move chromedriver binary in the same directory
+* edit cf-dns.py and insert the correct configuration
+* python cf-dns.py
+
+### Mac os
+* insert chromedriver binary path on the system path
+  - sudo nano /etc/paths
+  - example: /Users/luca/chromedriver
+* edit cf-dns.py and insert the correct configuration
+* sudo chmod +x cf-dns.py
+* ./cf-dns.py
+
+### Linux
+* move chromedriver binary in the same directory
+* edit cf-dns.py and insert the correct configuration
+* sudo chmod +x cf-dns.py
+* ./cf-dns.py
 
 ![arch](https://github.com/LukeAz/cloudflare-dynamic-dns-updater/blob/main/img/arch.png)
 ## Install chromium and chromdriver on archlinux
 * sudo pacman -S chromium
-* Download from https://chromedriver.chromium.org/downloads
 
 ## Chromedriver for ARM64 and other
 * Download from assets: https://github.com/electron/electron/releases
