@@ -15,7 +15,7 @@ Project includes:
 * Chromium or Chrome
 * [Chromedriver](https://chromedriver.chromium.org/downloads)
 
-## Edit and configure cf-dns.py
+## Edit and configure config.json
 * auth_email : `account email`
 * auth_password : `account password`
 * auth_key : `see below`
@@ -36,7 +36,7 @@ Project includes:
 * If you want you can define a TTL for your token
 * Continue to summary
 * Create Token
-* Copy your token in the cf-dns.py file
+* Copy your token in the config.json file
 
 ## [Zone identifier]
 * Go in your dashboard and select the correct domain
@@ -55,20 +55,20 @@ Project includes:
 
 ### Windows
 * move chromedriver binary in the same directory
-* edit cf-dns.py and insert the correct configuration
+* edit config.json and insert the correct configuration
 * python cf-dns.py
 
 ### Mac os
 * insert chromedriver binary path on the system path
   - sudo nano /etc/paths
   - example: /Users/luca/chromedriver
-* edit cf-dns.py and insert the correct configuration
+* edit config.json and insert the correct configuration
 * sudo chmod +x cf-dns.py
 * ./cf-dns.py
 
 ### Linux
 * move chromedriver binary in the same directory
-* edit cf-dns.py and insert the correct configuration
+* edit config.json and insert the correct configuration
 * sudo chmod +x cf-dns.py
 * ./cf-dns.py
 
