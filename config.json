@@ -1,0 +1,11 @@
+{
+  "auth_email": "",
+  "auth_password": "",
+  "auth_key": "",
+  "zone_identifier": "",
+  "zone_name": "",
+  "record_name": "",
+  "proxy": true,
+  "ttl": 1,
+  "type": "A"
+}
